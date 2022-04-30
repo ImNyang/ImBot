@@ -6,6 +6,10 @@ tags:
   - discord.py
 ---
 
+#초대
+
+https://discord.com/api/oauth2/authorize?client_id=968451109687545917&permissions=8&scope=bot
+
 # Discord.py 예제
 
 [discord.py](https://discordpy.readthedocs.io/en/stable/)의 공식 문서를 보고 시작했습니다.
