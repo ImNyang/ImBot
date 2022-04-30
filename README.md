@@ -1,27 +1,29 @@
 ---
-title: Discord Python bot
-description: A Discord bot written in Python
+title: ImNyang
+description: 디스코드 방의 편리함과 즐거움을 더합니다.
 tags:
-  - python
+  - python3
   - discord.py
 ---
 
-# Discord.py Example
+# Discord.py 예제
 
-This example starts a Discord bot using [discord.py](https://discordpy.readthedocs.io/en/stable/).
+[discord.py](https://discordpy.readthedocs.io/en/stable/)의 공식 문서를 보고 시작했습니다.
+
+# 호스팅
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fdiscord-py&envs=DISCORD_TOKEN&DISCORD_TOKENDesc=Token+of+the+Discord+account+used)
 
-## ✨ Features
+## ✨ 필수 조건
 
-- Python
+- Python 3.9
 - Discord.py
 
-## 💁‍♀️ How to use
+## 💁‍♀️ 쓰는법
 
-- Install packages using `pip install -r requirements.txt`
-- Start the bot using `python main.py`
+- `pip install -r requirements.txt`로 필요 라이브러리를 설치해 주세요!
+- `python3 main.py`으로 실행해보세요!
 
-## 📝 Notes
+## 📝 노트
 
-This is a basic bot with the prefix `!`, more information can be founded at their [offical documentation](https://discordpy.readthedocs.io/en/stable/api.html).
+`냥 `이 기본 접두사입니다.
