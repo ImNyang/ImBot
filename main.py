@@ -99,12 +99,4 @@ async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
     await ctx.channel.send(f"`sudo kick {user.name} && reason {reason}`")
     await user.send(f"`sudo kick {user.name} && reason {reason}`")
 
-@bot.command()
-async def 포도냥이(ctx):
-   await ctx.reply("뷴태 고양이")
-
-@bot.command()
-async def 삼룡(ctx):
-   await ctx.reply("뷴태 드레곤")
-
 bot.run(os.environ["DISCORD_TOKEN"])
