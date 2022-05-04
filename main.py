@@ -38,9 +38,12 @@ async def help(ctx):
     embed=discord.Embed(title="❔ㅣ도움말", description="Prefix : `냥 `")
     embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="퐁!", inline=True)
     embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="챗을 정리합니다. (최대 갯수 없음 하지만 렉으로 인한 봇이 죽을 가능성 있음)", inline=True)
-    embed.add_field(name="`밴`, `죽어라`, `ven`, 'ban'", value="유저를 ven합니다!", inline=True)
+    embed.add_field(name="`밴`, `죽어라`, `ven`, `ban`", value="유저를 ven합니다!", inline=True)
     embed.add_field(name="`언밴`, `살어라`, `unven`, `unban`", value="유저를 unven합니다!", inline=True)
-    embed.add_field(name="`킥`, 'kick'", value="유저를 킥합니다!", inline=True)
+    embed.add_field(name="`킥`, `kick`", value="유저를 킥합니다!", inline=True)
+    embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보!", inline=True)
+    embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
+    embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
     await ctx.reply(embed=embed)
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
@@ -136,6 +139,16 @@ async def dice(ctx):
         await ctx.reply(embed=discord.Embed(title="🎲ㅣ주사위", description='🎲' + '5️⃣'))
     if randomNum ==6:
         await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '6️⃣'))
+
+@bot.command(aliases=['동전', '동전던지기'])
+async def coin(ctx):
+    randomNum = random.randrange(1, 3)
+    print(randomNum)
+    if randomNum == 1:
+        await ctx.reply(embed=discord.Embed(title="🪙ㅣ동전 던지기", description='뒷면!'))
+    if randomNum == 2:
+        await ctx.reply(embed=discord.Embed(title="🪙ㅣ동전 던지기", description='앞면!'))
+
 
 @bot.command(aliases=['정보'])
 async def info(ctx):
