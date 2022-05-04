@@ -3,6 +3,8 @@ import discord
 from discord.ext import commands
 import random
 import platform
+import psutil
+import cpuinfo
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
@@ -135,6 +137,6 @@ async def dice(ctx):
 
 @bot.command(aliases=['정보'])
 async def info(ctx):
-    await ctx.reply(platform.system())
+    await ctx.reply("OS : "+platform.system())
 
 bot.run(os.environ["DISCORD_TOKEN"])
