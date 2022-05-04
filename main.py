@@ -122,15 +122,15 @@ async def dice(ctx):
     randomNum = random.randrange(1, 7)
     print(randomNum)
     if randomNum == 1:
-        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲'+ '1️⃣'))
+        await ctx.reply(embed=discord.Embed(title="🎲ㅣ주사위", description='🎲'+ '1️⃣'))
     if randomNum == 2:
-        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '2️⃣'))
+        await ctx.reply(embed=discord.Embed(title="🎲ㅣ주사위", description='🎲' + '2️⃣'))
     if randomNum ==3:
-        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '3️⃣'))
+        await ctx.reply(embed=discord.Embed(title="🎲ㅣ주사위", description='🎲' + '3️⃣'))
     if randomNum ==4:
-        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '4️⃣'))
+        await ctx.reply(embed=discord.Embed(title="🎲ㅣ주사위", description='🎲' + '4️⃣'))
     if randomNum ==5:
-        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '5️⃣'))
+        await ctx.reply(embed=discord.Embed(title="🎲ㅣ주사위", description='🎲' + '5️⃣'))
     if randomNum ==6:
         await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '6️⃣'))
 
@@ -142,5 +142,11 @@ async def info(ctx):
     embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
+
+@bot.command(aliases=['저장공간'])
+async def storge(ctx):
+    st = os.statvfs("/")
+    total = st.f_blocks * st.f_frsize
+    await ctx.reply("disk total :" + str(total/1024/1024/1024)[0:5] + "GB")
 
 bot.run(os.environ["DISCORD_TOKEN"])
