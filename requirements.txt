@@ -8,3 +8,6 @@ multidict==5.1.0
 typing-extensions==3.10.0.0
 yarl==1.6.3
 psutil==5.9.0
+py-cpuinfo==8.0.0
+asyncio==3.4.3
+beautifulsoup4==4.11.1
