@@ -2,6 +2,7 @@ import os
 import discord
 from discord.ext import commands
 import random
+import platform
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
@@ -100,7 +101,7 @@ async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
     await ctx.channel.send(f"`sudo kick {user.name} && reason {reason}`")
     await user.send(f"`sudo kick {user.name} && reason {reason}`")
 
-@bot.command(aliases=['가위바위보', '가위 바위 보'])
+@bot.command(aliases=['가위바위보'])
 async def rockscissorspaper(ctx, user: str):
     rps_table = ['가위', '바위', '보']
     bot = random.choice(rps_table)
@@ -115,7 +116,7 @@ async def rockscissorspaper(ctx, user: str):
         embed=discord.Embed(title="✌️ㅣ가위바위보!", description=f"{user} vs {bot}  봇이 이겼습니다.")
         await ctx.reply(embed=embed)
 
-@bot.command()
+@bot.command(aliases=['주사위'])
 async def dice(ctx):
     randomNum = random.randrange(1, 7)
     print(randomNum)
@@ -131,5 +132,9 @@ async def dice(ctx):
         await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '5️⃣'))
     if randomNum ==6:
         await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '6️⃣'))
+
+@bot.command(aliases=['정보'])
+async def info(ctx):
+    await ctx.reply(platform.system())
 
 bot.run(os.environ["DISCORD_TOKEN"])
