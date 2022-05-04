@@ -30,7 +30,7 @@ async def ping(ctx):
 
 @bot.command(aliases=['도움', '도움말', '명령어'])
 async def help(ctx):
-    embed=discord.Embed(title="도움말", description="Prefix : `냥 `")
+    embed=discord.Embed(title="❔ㅣ도움말", description="Prefix : `냥 `")
     embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="퐁!", inline=True)
     embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="챗을 정리합니다. (최대 갯수 없음 하지만 렉으로 인한 봇이 죽을 가능성 있음)", inline=True)
     embed.add_field(name="`밴`, `죽어라`, `ven`, 'ban'", value="유저를 ven합니다!", inline=True)
@@ -45,7 +45,7 @@ async def 안녕(ctx):
 
 @bot.command(aliases=['테스트'])
 async def test(ctx):
-   msg = await ctx.reply(f"{round(round(bot.latency, 4)*1000)}ms 테스트 완료! 이 메시지는 3초 뒤에 삭제됩니다.")
+   msg = await ctx.reply(f"📡ㅣ{round(round(bot.latency, 4)*1000)}ms 테스트 완료! 이 메시지는 3초 뒤에 삭제됩니다.")
    await msg.delete(delay=3)
 
 import datetime
@@ -56,7 +56,7 @@ time = f"{str(now.year)}년 {str(now.month)}월 {str(now.day)}일 {str(now.hour)
 @bot.event
 async def on_message_delete(message):
     channel = bot.get_channel(969520638513520690)
-    embed = discord.Embed(title=f"삭제됨", description=f"유저 : {message.author.mention} 채널 : {message.channel.mention}", color=0xFF0000)
+    embed = discord.Embed(title=f"🗑ㅣ삭제됨", description=f"유저 : {message.author.mention} 채널 : {message.channel.mention}", color=0xFF0000)
     embed.add_field(name="삭제된 내용", value=f"내용 : {message.content}", inline=False)
     embed.set_footer(text=f"{message.guild.name} | {time}")
     await channel.send(embed=embed)
@@ -66,7 +66,7 @@ async def on_message_delete(message):
 @bot.event
 async def on_message_edit(before, after):
     channel = bot.get_channel(969520638513520690)
-    embed = discord.Embed(title=f"수정됨", description=f"유저 : {before.author.mention} 채널 : {before.channel.mention}", color=0xFF9900)
+    embed = discord.Embed(title=f"📝ㅣ수정됨", description=f"유저 : {before.author.mention} 채널 : {before.channel.mention}", color=0xFF9900)
     embed.add_field(name="수정 전 내용", value=before.content, inline=True)
     embed.add_field(name="수정 후 내용", value=after.content, inline=True)
     embed.set_footer(text=f"{before.guild.name} | {time}")
@@ -100,32 +100,36 @@ async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
     await ctx.channel.send(f"`sudo kick {user.name} && reason {reason}`")
     await user.send(f"`sudo kick {user.name} && reason {reason}`")
 
-@bot.command()
-async def rocksisserpaper(ctx, user: str):
+@bot.command(aliases=['가위바위보', '가위 바위 보'])
+async def rockscissorspaper(ctx, user: str):
     rps_table = ['가위', '바위', '보']
     bot = random.choice(rps_table)
     result = rps_table.index(user) - rps_table.index(bot)
     if result == 0:
-        await ctx.send(f'{user} vs {bot}  비겼습니다.')
+        embed=discord.Embed(title="✌️ㅣ가위바위보!", description=f"{user} vs {bot}  비겼습니다.")
+        await ctx.reply(embed=embed)
     elif result == 1 or result == -2:
-        await ctx.send(f'{user} vs {bot}  유저가 이겼습니다.')
+        embed=discord.Embed(title="✌️ㅣ가위바위보!", description=f"{user} vs {bot}  유저가 이겼습니다.")
+        await ctx.reply(embed=embed)
     else:
-        await ctx.send(f'{user} vs {bot}  봇이 이겼습니다.')
+        embed=discord.Embed(title="✌️ㅣ가위바위보!", description=f"{user} vs {bot}  봇이 이겼습니다.")
+        await ctx.reply(embed=embed)
 
-    randomNum = random.randrange(1, 7) # 1~6까지 랜덤수
+@bot.command()
+async def dice(ctx):
+    randomNum = random.randrange(1, 7)
     print(randomNum)
     if randomNum == 1:
-        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: '+ ':one:'))
+        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲'+ '1️⃣'))
     if randomNum == 2:
-        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':two:'))
+        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '2️⃣'))
     if randomNum ==3:
-        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':three:'))
+        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '3️⃣'))
     if randomNum ==4:
-        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':four:'))
+        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '4️⃣'))
     if randomNum ==5:
-        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':five:'))
+        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '5️⃣'))
     if randomNum ==6:
-        await ctx.reply(embed=discord.Embed(description=':game_die: ' + ':six: '))
-
+        await ctx.reply(embed=discord.Embed(title="✌️ㅣ가위바위보!", description='🎲' + '6️⃣'))
 
 bot.run(os.environ["DISCORD_TOKEN"])
