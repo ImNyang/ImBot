@@ -4,7 +4,6 @@ from discord.ext import commands
 import random
 import platform
 import psutil
-import cpuinfo
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
