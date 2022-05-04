@@ -143,10 +143,4 @@ async def info(ctx):
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
 
-@bot.command(aliases=['저장공간'])
-async def storge(ctx):
-    st = os.statvfs("/")
-    total = st.f_blocks * st.f_frsize
-    await ctx.reply("disk total :" + str(total/1024/1024/1024)[0:5] + "GB")
-
 bot.run(os.environ["DISCORD_TOKEN"])
