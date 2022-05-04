@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+import random
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
@@ -98,5 +99,33 @@ async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
     await user.kick(reason=reason)
     await ctx.channel.send(f"`sudo kick {user.name} && reason {reason}`")
     await user.send(f"`sudo kick {user.name} && reason {reason}`")
+
+@bot.command()
+async def rocksisserpaper(ctx, user: str):
+    rps_table = ['가위', '바위', '보']
+    bot = random.choice(rps_table)
+    result = rps_table.index(user) - rps_table.index(bot)
+    if result == 0:
+        await ctx.send(f'{user} vs {bot}  비겼습니다.')
+    elif result == 1 or result == -2:
+        await ctx.send(f'{user} vs {bot}  유저가 이겼습니다.')
+    else:
+        await ctx.send(f'{user} vs {bot}  봇이 이겼습니다.')
+
+    randomNum = random.randrange(1, 7) # 1~6까지 랜덤수
+    print(randomNum)
+    if randomNum == 1:
+        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: '+ ':one:'))
+    if randomNum == 2:
+        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':two:'))
+    if randomNum ==3:
+        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':three:'))
+    if randomNum ==4:
+        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':four:'))
+    if randomNum ==5:
+        await client.send_message(message.channel, embed=discord.Embed(description=':game_die: ' + ':five:'))
+    if randomNum ==6:
+        await ctx.reply(embed=discord.Embed(description=':game_die: ' + ':six: '))
+
 
 bot.run(os.environ["DISCORD_TOKEN"])
