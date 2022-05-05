@@ -6,7 +6,7 @@ import platform
 import psutil
 import asyncio
 import jishaku
-import youtube_dl
+import requests
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
@@ -133,6 +133,31 @@ async def info(ctx):
     embed.add_field(name="CPU", value=platform.processor(), inline=False)
     embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
     embed.set_footer(text="Railway.app")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def server(ctx):
+    name = str(ctx.guild.name)
+    description = str(ctx.guild.description)
+
+    owner = str(ctx.guild.owner)
+    id = str(ctx.guild.id)
+    region = str(ctx.guild.region)
+    memberCount = str(ctx.guild.member_count)
+
+    icon = str(ctx.guild.icon_url)
+
+    embed = discord.Embed(
+        title=name + " **정보** ",
+        description=description,
+        color=discord.Color.blue()
+    )
+    embed.set_thumbnail(url=icon)
+    embed.add_field(name="서버 주인 : ", value=owner, inline=True)
+    embed.add_field(name="서버 ID : ", value=id, inline=True)
+    embed.add_field(name="서버 지역 : ", value=region, inline=True)
+    embed.add_field(name="서버 인원 : ", value=memberCount, inline=True)
+
     await ctx.send(embed=embed)
 
 bot.run(os.environ["DISCORD_TOKEN"])
