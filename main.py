@@ -1,16 +1,11 @@
-import os
 import discord
 from discord.ext import commands
-import random
-import platform
-import psutil
-import asyncio
-import jishaku
-import requests
+import random, platform, psutil, asyncio, jishaku,requests, os
 
-bot = commands.Bot(command_prefix='냥 ')
+bot = commands.Bot(command_prefix='냥 ',)
 bot.remove_command('help')
 bot.load_extension('jishaku')
+intents = discord.Intents(messages=True, guilds=True)
 
 @bot.event
 async def on_ready():
