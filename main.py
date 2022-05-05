@@ -6,6 +6,7 @@ import platform
 import psutil
 import asyncio
 import jishaku
+import youtube_dl
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
@@ -55,30 +56,6 @@ async def 안녕(ctx):
 async def test(ctx):
    msg = await ctx.reply(f"📡ㅣ{round(round(bot.latency, 4)*1000)}ms 테스트 완료! 이 메시지는 3초 뒤에 삭제됩니다.")
    await msg.delete(delay=3)
-
-import datetime
-
-now = datetime.datetime.now()
-time = f"{str(now.year)}년 {str(now.month)}월 {str(now.day)}일 {str(now.hour)}시 {str(now.minute)}분 {str(now.second)}초"
-
-@bot.event
-async def on_message_delete(message):
-    channel = bot.get_channel(969520638513520690)
-    embed = discord.Embed(title=f"🗑ㅣ삭제됨", description=f"유저 : {message.author.mention} 채널 : {message.channel.mention}", color=0xFF0000)
-    embed.add_field(name="삭제된 내용", value=f"내용 : {message.content}", inline=False)
-    embed.set_footer(text=f"{message.guild.name} | {time}")
-    await channel.send(embed=embed)
-
-#969520638513520690
-
-@bot.event
-async def on_message_edit(before, after):
-    channel = bot.get_channel(969520638513520690)
-    embed = discord.Embed(title=f"📝ㅣ수정됨", description=f"유저 : {before.author.mention} 채널 : {before.channel.mention}", color=0xFF9900)
-    embed.add_field(name="수정 전 내용", value=before.content, inline=True)
-    embed.add_field(name="수정 후 내용", value=after.content, inline=True)
-    embed.set_footer(text=f"{before.guild.name} | {time}")
-    await channel.send(embed=embed)
 
 @commands.has_permissions(kick_members=True)
 @bot.command(aliases=['청소','clean','지워','삭제'])
@@ -158,7 +135,5 @@ async def info(ctx):
     embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
-
-
 
 bot.run(os.environ["DISCORD_TOKEN"])
