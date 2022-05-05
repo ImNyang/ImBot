@@ -42,7 +42,7 @@ async def help(ctx):
     embed.add_field(name="`밴`, `죽어라`, `ven`, `ban`", value="유저를 ven합니다!", inline=True)
     embed.add_field(name="`언밴`, `살어라`, `unven`, `unban`", value="유저를 unven합니다!", inline=True)
     embed.add_field(name="`킥`, `kick`", value="유저를 킥합니다!", inline=True)
-    embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보!", inline=True)
+    embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보 가위, 바위, 보", inline=True)
     embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
     embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
     await ctx.reply(embed=embed)
@@ -125,7 +125,6 @@ async def coin(ctx):
         await ctx.reply(embed=discord.Embed(title="🪙ㅣ동전 던지기", description='뒷면!'))
     if randomNum == 2:
         await ctx.reply(embed=discord.Embed(title="🪙ㅣ동전 던지기", description='앞면!'))
-
 
 @bot.command(aliases=['정보'])
 async def info(ctx):
