@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku,requests, os
-
+from bs4 import BeautifulSoup
+from urllib.parse import unquote
 bot = commands.Bot(command_prefix='냥 ',)
 bot.remove_command('help')
 bot.load_extension('jishaku')
@@ -153,5 +154,37 @@ async def server(ctx):
     embed.add_field(name="서버 인원 : ", value=memberCount, inline=True)
 
     await ctx.send(embed=embed)
+
+async def Google(q):
+	searchpage = requests.get("https://www.google.co.kr/search?q={}".format(q))
+	bsoup = BeautifulSoup(searchpage.content, 'html.parser')
+	message = ""
+	results = bsoup.findAll("div", attrs={"class":"g"})
+	for result in results:
+		h3 = result.find("h3", attrs={"class":"r"}, recursive=True)
+		if h3 != None:
+			a = h3.find("a")
+			txt = h3.text
+			link = a.get("href")
+			link = link.replace("/url?q=", "")
+			link = link.replace("/search?", "https://www.google.co.kr/search?")
+			link = link[:link.rfind("&sa=U")]
+			link = unquote(link)
+			message += "{}\n{}\n\n".format(txt,link)
+			if len(message) > 1600:
+				break
+	return message
+
+@bot.command(pass_context=True)
+async def google(context, args="구글"):
+    if len(args) > 1:
+        try:
+            searchQuery = "".join(args[0:])
+            messageString = await Google(searchQuery)
+            em = discord.embed(title="\"{}\"에 대한 구글 검색결과".format(searchQuery), description=messageString, colour=0x8FACEf)
+            await bot.reply(embed=em)
+        except:
+            await bot.reply("구글로부터 검색 결과를 가져올 수 없습니다")
+
 
 bot.run(os.environ["DISCORD_TOKEN"])
