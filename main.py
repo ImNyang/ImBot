@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku,requests, os
-from bs4 import BeautifulSoup
 
 bot = commands.Bot(command_prefix='냥 ',)
 bot.remove_command('help')
@@ -15,13 +14,6 @@ async def on_ready():
     print('------')
     user = await bot.fetch_user("909353223901569035")
     await user.send("<:neko_party:943083727901302834>ㅣ봇이 준비되었습니다!")
-
-@bot.event
-async def on_command_error(ctx, error):
-    embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
-    embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
-    embed.set_footer(text="Dm : ImNyang#9009")
-    await ctx.send(embed=embed)
 
 @bot.command(aliases=['핑', 'pong', '퐁'])
 async def ping(ctx):
