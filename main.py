@@ -70,6 +70,16 @@ async def volume(self, ctx, vol: int = None):
 async def queue_list(self, ctx):
     pass
 
+#채팅 기능 오류로 안넘어가게 패치
+
+@bot.command(aliases=['이야기', '말하자', 'we_need_talk'])
+async def talk(ctx, q=None):
+    pass
+
+@bot.command(aliases=['기억해', '배워'])
+async def remember(ctx, m=None, *, n=None):
+    pass
+
 #아래부터 찐 코드
 
 @bot.command(aliases=['핑', 'pong', '퐁'])
