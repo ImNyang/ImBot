@@ -8,7 +8,7 @@ tags:
 
 # 초대
 
-https://discord.com/api/oauth2/authorize?client_id=968451109687545917&permissions=8&scope=bot
+[초대하기](https://discord.com/api/oauth2/authorize?client_id=968451109687545917&permissions=8&scope=bot)
 
 # Discord.py 예제
 
