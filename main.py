@@ -1,10 +1,16 @@
+#라이브러리 안쓰는거 같지만 다 씀
+
 import discord
 from discord.ext import commands
-import random, platform, psutil, asyncio, jishaku,requests, os
+import random, platform, psutil, asyncio, jishaku, os
+
+#함수 설정
 
 bot = commands.Bot(command_prefix='냥 ',)
 bot.remove_command('help')
 bot.load_extension('jishaku')
+
+#event 처리
 
 @bot.event
 async def on_ready():
@@ -14,6 +20,57 @@ async def on_ready():
     print('------')
     user = await bot.fetch_user("909353223901569035")
     await user.send("<:neko_party:943083727901302834>ㅣ봇이 준비되었습니다!")
+
+@bot.event
+async def on_command_error(ctx, error):
+    embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
+    embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
+    embed.set_footer(text="Dm : ImNyang#9009")
+    await ctx.send(embed=embed)
+
+# 음악 오류로 안넘어가게 패치
+
+@bot.command(name="재생", description="음악을 재생합니다.", aliases=["play", "p", "ㅔ", "대기", "queue", "q", "ㅂ"])
+async def play(self, ctx, *, url):
+    pass
+
+@bot.command(name='루프', description="재생중인 음악을 무한 반복하거나 무한 반복을 해제합니다.", aliases=["무한반복", "loop", "repeat"])
+async def music_loop(self, ctx):
+    pass
+
+@bot.command(name="셔플", description="대기 리스트에서 음악을 무작위로 재생합니다.", aliases=["랜덤", "random", "shuffle", "sf", "ㄶ", "ㄴㅎ"])
+async def shuffle(self, ctx):
+    pass
+
+@bot.command(name="스킵", description="재생중인 음악을 스킵합니다.", aliases=["s", "skip", "ㄴ"])
+async def skip(self, ctx):
+    pass
+
+@bot.command(name="정지", description="음악 재생을 멈춥니다.", aliases=["stop", "ㄴ새ㅔ"])
+async def stop(self, ctx):
+    pass
+
+@bot.command(name="일시정지", description="음악을 일시정지합니다.", aliases=["pause", "ps", "ㅔㄴ"])
+async def pause(self, ctx):
+    pass
+
+@bot.command(name="계속재생", description="음악 일시정지를 해제합니다.", aliases=["resume", "r", "ㄱ"])
+async def resume(self, ctx):
+    pass
+
+@bot.command(name="강제연결해제", description="봇 오류로 음악 재생에 문제가 발생했을 때 강제로 접속을 해제합니다.", aliases=["나가", "제발나가", "quit", 'leave', 'l', "ㅣ", "dc"])
+async def force_quit(self, ctx):
+    pass
+
+@bot.command(name="볼륨", description="음악의 볼륨을 조절합니다.", aliases=["volume", "vol", "v", "패ㅣㅕㅡㄷ", "ㅍ"])
+async def volume(self, ctx, vol: int = None):
+    pass
+
+@bot.command(name="대기리스트", description="현재 대기 리스트를 보여줍니다.", aliases=["대기열", "재생리스트", "pl", "ql", "queuelist", "playlist", "비", "ㅔㅣ"])
+async def queue_list(self, ctx):
+    pass
+
+#아래부터 찐 코드
 
 @bot.command(aliases=['핑', 'pong', '퐁'])
 async def ping(ctx):
@@ -32,6 +89,7 @@ async def help(ctx):
     embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보 가위, 바위, 보", inline=True)
     embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
     embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
+    embed.add_field(name="`음악_도움말`, `음악_도움`", value="음악", inline=True)
     await ctx.reply(embed=embed)
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
