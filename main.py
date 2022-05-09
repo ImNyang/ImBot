@@ -2,7 +2,7 @@
 
 import discord
 from discord.ext import commands
-import random, platform, psutil, asyncio, jishaku, os, json
+import random, platform, psutil, asyncio, jishaku, os
 
 #함수 설정
 
@@ -179,38 +179,5 @@ async def info(ctx):
     embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
-
-@bot.command()
-async def remember(ctx, m=None, *, n=None):
-    if m == None or n == None:
-        raise commands.CommandNotFound
-    elif m == None and n == None:
-        raise commands.CommandNotFound
-    with open('text.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        for i in data['str']:
-            embed = discord.Embed(color=discord.Colour.red())
-            embed.set_author(name=f'{m}은 이미 존재하는 단어입니다.')
-            await ctx.reply(embed=embed)
-            return False
-    data['str'][f'{m}'] = str(n)
-
-    with open('text.json', 'w', encoding='utf-8') as ff:
-        json.dump(data,ff,ensure_ascii=False,indent='\t')
-    
-    embed = discord.Embed(color=discord.Colour.random())
-    embed.set_author(name=f'{m}은(는) {n}이라구요? 알려주셔서 감사해요! 익명으로 표시될거지만 심한 말들은 제제되어 삭제될 수 있어요.')
-    await ctx.reply(embed=embed)
-
-@bot.command()
-async def talk(ctx, q=None):
-    try:
-        with open('text.json', 'r') as f:
-            json_data = json.load(f)
-            embed=discord.Embed(color=discord.Colour.random())
-            embed.set_author(name=json_data['str'][str(q)])
-            await ctx.reply(embed=embed)
-    except KeyError:
-        await ctx.reply("앗 알아듣지 못했어요!")
 
 bot.run(os.environ["DISCORD_TOKEN"])
