@@ -33,53 +33,43 @@ async def on_command_error(ctx, error):
 # 음악 오류로 안넘어가게 패치
 
 @bot.command(name="재생", description="음악을 재생합니다.", aliases=["play", "p", "ㅔ", "대기", "queue", "q", "ㅂ"])
-async def play(self, ctx, *, url):
+async def play():
     pass
 
 @bot.command(name='루프', description="재생중인 음악을 무한 반복하거나 무한 반복을 해제합니다.", aliases=["무한반복", "loop", "repeat"])
-async def music_loop(self, ctx):
+async def music_loop():
     pass
 
 @bot.command(name="셔플", description="대기 리스트에서 음악을 무작위로 재생합니다.", aliases=["랜덤", "random", "shuffle", "sf", "ㄶ", "ㄴㅎ"])
-async def shuffle(self, ctx):
+async def shuffle():
     pass
 
 @bot.command(name="스킵", description="재생중인 음악을 스킵합니다.", aliases=["s", "skip", "ㄴ"])
-async def skip(self, ctx):
+async def skip():
     pass
 
 @bot.command(name="정지", description="음악 재생을 멈춥니다.", aliases=["stop", "ㄴ새ㅔ"])
-async def stop(self, ctx):
+async def stop():
     pass
 
 @bot.command(name="일시정지", description="음악을 일시정지합니다.", aliases=["pause", "ps", "ㅔㄴ"])
-async def pause(self, ctx):
+async def pause():
     pass
 
 @bot.command(name="계속재생", description="음악 일시정지를 해제합니다.", aliases=["resume", "r", "ㄱ"])
-async def resume(self, ctx):
+async def resume():
     pass
 
 @bot.command(name="강제연결해제", description="봇 오류로 음악 재생에 문제가 발생했을 때 강제로 접속을 해제합니다.", aliases=["나가", "제발나가", "quit", 'leave', 'l', "ㅣ", "dc"])
-async def force_quit(self, ctx):
+async def force_quit():
     pass
 
 @bot.command(name="볼륨", description="음악의 볼륨을 조절합니다.", aliases=["volume", "vol", "v", "패ㅣㅕㅡㄷ", "ㅍ"])
-async def volume(self, ctx, vol: int = None):
+async def volume():
     pass
 
 @bot.command(name="대기리스트", description="현재 대기 리스트를 보여줍니다.", aliases=["대기열", "재생리스트", "pl", "ql", "queuelist", "playlist", "비", "ㅔㅣ"])
-async def queue_list(self, ctx):
-    pass
-
-#채팅 기능 오류로 안넘어가게 패치
-
-@bot.command(aliases=['이야기', '말하자', 'we_need_talk'])
-async def talk(ctx, q=None):
-    pass
-
-@bot.command(aliases=['기억해', '배워'])
-async def remember(ctx, m=None, *, n=None):
+async def queue_list():
     pass
 
 #아래부터 찐 코드
