@@ -1,8 +1,5 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
-from calendar import c
-from sys import builtin_module_names
-from turtle import circle
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
