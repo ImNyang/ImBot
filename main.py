@@ -4,8 +4,6 @@ import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
 from discord_buttons_plugin import *
-from PIL import Image, ImageChops, ImageDraw, ImageFont
-from io import BytesIO
 
 #함수 설정
 
@@ -13,19 +11,6 @@ bot = commands.Bot(command_prefix='냥 ',)
 buttons = ButtonsClient(bot)
 bot.remove_command('help')
 bot.load_extension('jishaku')
-
-def circle(pfp, size=(215,215)):
-
-    pfp = pfp.resize(size, Image.ANTIALIAS).convert("RGBA")
-
-    bigsize = (pfp.size[0] * 3, pfp.size[1] * 3)
-    mask = Image.new('L', bigsize, 0)
-    draw = ImageDraw.Draw(mask)
-    draw.ellipse((0, 0) + bigsize, fill=255)
-    mask = mask.resize(pfp.size, Image.ANTIALIAS)
-    mask = ImageChops.darker(mask, pfp.split()[-1])
-    pfp.putalpha(mask)
-    return pfp
 
 #event 처리
 
@@ -209,29 +194,13 @@ async def info(ctx):
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
 
-@bot.command()
-async def GitHub(ctx):
-    await buttons.send(
-	    content = "This is an example message!", 
-	    channel = ctx.channel.id,
-    	components = [
-	    	ActionRow([
-		    	Button(
-			    	label="GitHub", 
-    				style = ButtonType().Link,
-	    			url = "https://github.com/ImNyang"       
-		    	)
-    		])
-	    ]
-    )
-
 @bot.command(aliases=['유저', '유저_정보','user_info'])
 async def profile(ctx):
-    name = ctx.User.name
-    displayname = ctx.User.display_name
-    Id = ctx.User.id
-    avatar = ctx.User.avatar_url
-    color = ctx.User.color
+    name = ctx.author.name
+    displayname = ctx.author.display_name
+    Id = ctx.author.id
+    avatar = ctx.author.avatar_url
+    color = ctx.author.color
 
     embed=discord.Embed()
     embed.set_author(name="정보", icon_url=avatar)
