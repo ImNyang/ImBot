@@ -203,7 +203,7 @@ async def GitHub(ctx):
 	    	ActionRow([
 		    	Button(
 			    	label="GitHub", 
-    				style=ButtonType().Link
+    				style = ButtonType().Link,
 	    			url = "https://github.com/ImNyang"       
 		    	)
     		])
