@@ -11,3 +11,4 @@ psutil==5.9.0
 jishaku==2.5.0
 requests==2.27.1
 discord_buttons_plugin==0.1.2
+Pillow==9.1.0
