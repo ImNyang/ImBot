@@ -1,12 +1,16 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
+from cProfile import label
+from tkinter import Button
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
+from discord_buttons_plugin import *
 
 #함수 설정
 
 bot = commands.Bot(command_prefix='냥 ',)
+buttons = ButtonsClient(bot)
 bot.remove_command('help')
 bot.load_extension('jishaku')
 
@@ -112,7 +116,7 @@ async def test(ctx):
    msg = await ctx.reply(f"📡ㅣ{round(round(bot.latency, 4)*1000)}ms 테스트 완료! 이 메시지는 3초 뒤에 삭제됩니다.")
    await msg.delete(delay=3)
 
-@commands.has_permissions(kick_members=True)
+@commands.has_permissions(administrator=True)
 @bot.command(aliases=['청소','clean','지워','삭제'])
 async def clear(ctx, amount : int):
     await ctx.channel.purge(limit=amount)
@@ -189,5 +193,21 @@ async def info(ctx):
     embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
+
+@bot.command()
+async def GitHub(ctx):
+    await buttons.send(
+	    content = "This is an example message!", 
+	    channel = ctx.channel.id,
+    	components = [
+	    	ActionRow([
+		    	Button(
+			    	label="GitHub", 
+    				style=ButtonType().Link
+	    			url = "https://github.com/ImNyang"       
+		    	)
+    		])
+	    ]
+    )
 
 bot.run(os.environ["DISCORD_TOKEN"])
