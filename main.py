@@ -200,14 +200,16 @@ async def profile(ctx):
     displayname = ctx.author.display_name
     Id = ctx.author.id
     avatar = ctx.author.avatar_url
-    color = ctx.author.color
+    color = ctx.author.color.default()
+    created_at = ctx.author.created_at
 
     embed=discord.Embed()
-    embed.set_author(name="정보", icon_url=avatar)
-    embed.add_field(name="이름", value=f"{name}", inline=False)
-    embed.add_field(name="서버에서 쓰는 이름", value=f"{displayname}", inline=False)
-    embed.add_field(name="User ID", value=f"{Id}", inline=False)
-    embed.add_field(name="퍼스널 컬러", value=f"{color}", inline=False)
+    embed.set_author(name=f"ㅣ사용자 {name}의 정보", icon_url=avatar)
+    embed.add_field(name="🏷ㅣ이름", value=f"{name}", inline=False)
+    embed.add_field(name="🏷ㅣ서버에서 쓰는 이름", value=f"{displayname}", inline=False)
+    embed.add_field(name="🪪ㅣUser ID", value=f"{Id}", inline=False)
+    embed.add_field(name="🎨ㅣ퍼스널 컬러", value=f"{color}", inline=False)
+    embed.add_field(name="📆ㅣ계정 만든 날 (UTC 기준)", value=f"{created_at}", inline=False)
     await ctx.send(embed=embed)
 
     
