@@ -244,9 +244,9 @@ async def divide(ctx, *nums):
     await ctx.send(f'{operation}')
 
 @bot.command()
-async def profile(self, ctx, member:discord.Member=None):
-    if not member:
-        member = ctx.author
+async def profile(self, ctx):
+    
+    member = ctx.author
 
     name, nick, Id, status = str(member), member.display_name,str(member.id), str(member.status).upper()
     
