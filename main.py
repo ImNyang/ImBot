@@ -1,7 +1,5 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
-from cProfile import label
-from tkinter import Button
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
