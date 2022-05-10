@@ -244,48 +244,21 @@ async def divide(ctx, *nums):
     await ctx.send(f'{operation}')
 
 @bot.command()
-async def profile(self, ctx):
-    
-    member = ctx.author
+async def profile(self,ctx):
+    name = ctx.User.name
+    displayname = ctx.User.display_name
+    Id = ctx.User.id
+    avatar = ctx.User.avatar_url
+    color = ctx.User.color
 
-    name, nick, Id, status = str(member), member.display_name,str(member.id), str(member.status).upper()
-    
-    created_at = member.created_at.strftime("%a %b\n%B %Y")
-    joined_at = member.joined_at.strftime("%a %b\n%B %Y")
+    embed=discord.Embed()
+    embed.set_author(name="정보", icon_url=avatar)
+    embed.add_field(name="이름", value=f"{name}", inline=False)
+    embed.add_field(name="서버에서 쓰는 이름", value=f"{displayname}", inline=False)
+    embed.add_field(name="User ID", value=f"{Id}", inline=False)
+    embed.add_field(name="퍼스널 컬러", value=f"{color}", inline=False)
+    await ctx.send(embed=embed)
 
-    money, level = "IDK","IDK"
-
-    base = Image.open("base.png").convert("RGBA")
-    background = Image.open("base.png").convert
-
-    pfp = member.avatar_url_as(size=256)
-    data=BytesIO(await pfp.read())
-    pfp = Image.open(data).convert("RGBA")
-
-    name = f"{name[:16]}.." if len(name)>16 else name
-    nick = f"AKA - {name[:17]}.." if len(name)>17 else f"AKA - {nick}"
-    
-    draw = ImageDraw.Draw(base)
-    pfp = circle(pfp, (215,215))
-    font = ImageFont.truetype("font.ttf", 38)
-    akafont = ImageFont.truetype("font.ttf", 30)
-    akafont = ImageFont.truetype("font.ttf", 30)
-    subfont = ImageFont.truetype("font.ttf", 25)
-
-    draw.text((280, 240),name,font=font)
-    draw.text((270, 315),nick,font=akafont)
-    draw.text((65, 490),Id,font=subfont)
-    draw.text((405, 490),status,font=subfont)
-    draw.text((65, 635),money,font=subfont)
-    draw.text((405, 635),level,font=subfont)
-    draw.text((65, 770),created_at,font=subfont)
-    draw.text((405, 770),joined_at,font=subfont)
-    base.paste(pfp,(56,158), pfp)
-
-    with BytesIO() as a:
-        background.save(a, "PNG")
-        a.seek(0)
-        await ctx.reply(file = discord.File(a, "profile.png"))
     
     
 bot.run(os.environ["DISCORD_TOKEN"])
