@@ -116,6 +116,8 @@ async def help(ctx):
     embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보 가위, 바위, 보", inline=True)
     embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
     embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
+    embed.add_field(name="`정보`, `info`", value="음악", inline=True)
+    embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="음악", inline=True)
     embed.add_field(name="`음악_도움말`, `음악_도움`", value="음악", inline=True)
     await ctx.reply(embed=embed)
 
@@ -223,28 +225,8 @@ async def GitHub(ctx):
 	    ]
     )
 
-@bot.command() 
-async def add(ctx, *nums):
-    operation = " + ".join(nums)
-    await ctx.send(f'{operation}')
-
-@bot.command() 
-async def sub(ctx, *nums): 
-    operation = " - ".join(nums)
-    await ctx.send(f'{operation}')
-
-@bot.command() 
-async def multiply(ctx, *nums): 
-    operation = " * ".join(nums)
-    await ctx.send(f'{operation}')
-
-@bot.command() 
-async def divide(ctx, *nums): 
-    operation = " / ".join(nums)
-    await ctx.send(f'{operation}')
-
-@bot.command()
-async def profile(self,ctx):
+@bot.command(aliases=['유저', '유저_정보','user_info'])
+async def profile(ctx):
     name = ctx.User.name
     displayname = ctx.User.display_name
     Id = ctx.User.id
