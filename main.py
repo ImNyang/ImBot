@@ -5,7 +5,7 @@ from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os, aiohttp
 from discord_buttons_plugin import *
 from discord_together import DiscordTogether
-from discord import Webhook, RequestsWebhookAdapter # Importing discord.Webhook and discord.RequestsWebhookAdapter
+from discord import Webhook, AsyncWebhookAdapter
 
 #함수 설정
 
