@@ -29,7 +29,7 @@ tags:
 
 ## 💁‍♀️ 쓰는법
 
-- 코드 안에 토큰을 
+- 코드 안에 토큰을 수
 - `pip install -r requirements.txt`로 필요 라이브러리를 설치해 주세요!
 - `python3 main.py`으로 실행해보세요!
 
