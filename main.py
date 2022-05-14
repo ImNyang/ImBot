@@ -183,25 +183,26 @@ async def info(ctx):
     embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
     embed.set_footer(text="Railway.app")
     await ctx.send(embed=embed)
+    
 
 @bot.command(aliases=['유저', '유저_정보','user_info'])
 async def profile(ctx):
     name = ctx.author.name
     displayname = ctx.author.display_name
+    areyoubot = ctx.author.avatar_url
     Id = ctx.author.id
     avatar = ctx.author.avatar_url
-    color = ctx.author.color.default()
     created_at = ctx.author.created_at
+    imgisgif = ctx.author.is_avatar_animated()
 
     embed=discord.Embed()
     embed.set_author(name=f"ㅣ사용자 {name}의 정보", icon_url=avatar)
     embed.add_field(name="🏷ㅣ이름", value=f"{name}", inline=False)
     embed.add_field(name="🏷ㅣ서버에서 쓰는 이름", value=f"{displayname}", inline=False)
+    embed.add_field(name="🤖ㅣ봇 여부", value=f"{areyoubot}", inline=False)
+    embed.add_field(name="🖼ㅣ프로필 사진 GIF 여부", value=f"{imgisgif}", inline=False)
     embed.add_field(name="🪪ㅣUser ID", value=f"{Id}", inline=False)
-    embed.add_field(name="🎨ㅣ퍼스널 컬러", value=f"{color}", inline=False)
     embed.add_field(name="📆ㅣ계정 만든 날 (UTC 기준)", value=f"{created_at}", inline=False)
     await ctx.send(embed=embed)
 
-    
-    
 bot.run(os.environ["DISCORD_TOKEN"])
