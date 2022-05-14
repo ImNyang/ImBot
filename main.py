@@ -2,9 +2,10 @@
 
 import discord
 from discord.ext import commands
-import random, platform, psutil, asyncio, jishaku, os
+import random, platform, psutil, asyncio, jishaku, os, requests
 from discord_buttons_plugin import *
 from discord_together import DiscordTogether
+from bs4 import BeautifulSoup
 
 #함수 설정
 
@@ -32,49 +33,7 @@ async def on_command_error(ctx, error):
     embed.set_footer(text="Dm : ImNyang#9009")
     await ctx.send(embed=embed)
 
-# 음악 오류로 안넘어가게 패치
-
-@bot.command(name="재생", description="음악을 재생합니다.", aliases=["play", "p", "ㅔ", "대기", "queue", "q", "ㅂ"])
-async def play():
-    pass
-
-@bot.command(name='루프', description="재생중인 음악을 무한 반복하거나 무한 반복을 해제합니다.", aliases=["무한반복", "loop", "repeat"])
-async def music_loop():
-    pass
-
-@bot.command(name="셔플", description="대기 리스트에서 음악을 무작위로 재생합니다.", aliases=["랜덤", "random", "shuffle", "sf", "ㄶ", "ㄴㅎ"])
-async def shuffle():
-    pass
-
-@bot.command(name="스킵", description="재생중인 음악을 스킵합니다.", aliases=["s", "skip", "ㄴ"])
-async def skip():
-    pass
-
-@bot.command(name="정지", description="음악 재생을 멈춥니다.", aliases=["stop", "ㄴ새ㅔ"])
-async def stop():
-    pass
-
-@bot.command(name="일시정지", description="음악을 일시정지합니다.", aliases=["pause", "ps", "ㅔㄴ"])
-async def pause():
-    pass
-
-@bot.command(name="계속재생", description="음악 일시정지를 해제합니다.", aliases=["resume", "r", "ㄱ"])
-async def resume():
-    pass
-
-@bot.command(name="강제연결해제", description="봇 오류로 음악 재생에 문제가 발생했을 때 강제로 접속을 해제합니다.", aliases=["나가", "제발나가", "quit", 'leave', 'l', "ㅣ", "dc"])
-async def force_quit():
-    pass
-
-@bot.command(name="볼륨", description="음악의 볼륨을 조절합니다.", aliases=["volume", "vol", "v", "패ㅣㅕㅡㄷ", "ㅍ"])
-async def volume():
-    pass
-
-@bot.command(name="대기리스트", description="현재 대기 리스트를 보여줍니다.", aliases=["대기열", "재생리스트", "pl", "ql", "queuelist", "playlist", "비", "ㅔㅣ"])
-async def queue_list():
-    pass
-
-#아래부터 찐 코드
+#코드
 
 @bot.command(aliases=['핑', 'pong', '퐁'])
 async def ping(ctx):
@@ -211,5 +170,20 @@ async def profile(ctx):
 async def youtube(ctx):
     link = await bot.togetherControl.create_link(ctx.author.voice.channel.id, 'youtube')
     await ctx.send(f"아래 링크를 클릭하세요!\n{link}")
+
+def get_search_count(keyword):
+    url = "https://www.google.com/search?q={}".format(keyword)
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'}
+    res = requests.get(url, headers=headers)
+
+    soup = BeautifulSoup(res.text, 'lxml')
+    number = soup.select_one('#result-stats').text
+    # print(number) # 검색결과 약 7,320,000개 (0.47초) 
+    number = number[number.find('약')+2:number.rfind('개')] # 7,320,000
+    number = int(number.replace(',','')) # 7320000
+    return {'keyword':keyword, 'number':number}
+@bot.command(aliases=['구글','검색', 'search'])
+async def google(ctx, search:str):
+    await ctx.reply(get_search_count(search))
 
 bot.run(os.environ["DISCORD_TOKEN"])
