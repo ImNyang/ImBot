@@ -1,11 +1,13 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
+from urllib import response
 import discord
 from discord.ext import commands
-import random, platform, psutil, asyncio, jishaku, os, aiohttp
+import random, platform, psutil, asyncio, jishaku, os
 from discord_buttons_plugin import *
 from discord_together import DiscordTogether
-from discord import Webhook, AsyncWebhookAdapter
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
 
 #함수 설정
 
@@ -169,11 +171,18 @@ async def profile(ctx):
 @bot.command(aliases=['유튜브','유튭'])
 async def youtube(ctx):
     link = await bot.togetherControl.create_link(ctx.author.voice.channel.id, 'youtube')
-    await ctx.send(f"아래 링크를 클릭하세요!\n{link}")
+    await ctx.reply(f"아래 링크를 클릭하세요!\n{link}")
 
 @bot.command()
-async def 익명(ctx, msg:str):
-    webhook = Webhook.from_url('https://discord.com/api/webhooks/974995333572608050/2q-L4OgeOaVQ-nijxgxA9JLOQU9lI0o0XhoIkPXtR1S8RckI6UVWSmxI-vom2-P4_koo', adapter=RequestsWebhookAdapter()) # Initializing webhook
-    webhook.send(username="익명", content=f"{msg}") # Executing webhook.
+async def naver_ranking(ctx, msg:str):
+    response = urlopen('https://www.naver.com/')
+    soup = BeautifulSoup(response, 'html.parser')
+    i = 1
+    embed = discord.Embed(title="네이버 인기 급상승 검색어", description="👀")
+    for anchor in soup.select("span.ah_k"):
+        embed.add_field(name=f"{str(i)}위", value=f"{anchor.get_text()}", inline=False)
+        i = i + 1
+    await ctx.reply(embed=embed)
+        
 
 bot.run(os.environ["DISCORD_TOKEN"])
