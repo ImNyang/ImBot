@@ -189,7 +189,7 @@ async def info(ctx):
 async def profile(ctx):
     name = ctx.author.name
     displayname = ctx.author.display_name
-    areyoubot = ctx.author.avatar_url
+    areyoubot = ctx.author.bot
     Id = ctx.author.id
     avatar = ctx.author.avatar_url
     created_at = ctx.author.created_at
