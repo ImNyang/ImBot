@@ -12,4 +12,3 @@ jishaku==2.5.0
 requests==2.27.1
 discord_buttons_plugin==0.1.2
 discord-together==1.2.4
-slack-sdk==3.16.1
