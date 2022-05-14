@@ -57,6 +57,7 @@ async def help(ctx):
     embed.add_field(name="`정보`, `info`", value="이 봇의 서버 정보입니다,", inline=True)
     embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="유저의 정보를 알려줍니다.", inline=True)
     embed.add_field(name="`유튜브`, `유튭`, `youtube`", value="음성채널에 들어가서 쓰면 유튜브를 볼 수 있습니다.", inline=True)
+    embed.add_field(name="`url`, `short`, `shorturl`, `link`, `url단축`, `링크`, `링크단축`", value="", inline=True)
     await ctx.reply(embed=embed)
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
