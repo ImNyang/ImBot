@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
 from discord_buttons_plugin import *
+from discord_together import DiscordTogether
 
 #함수 설정
 
@@ -22,6 +23,7 @@ async def on_ready():
     print('------')
     user = await bot.fetch_user("909353223901569035")
     await user.send("<:neko_party:943083727901302834>ㅣ봇이 준비되었습니다!")
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -91,9 +93,9 @@ async def help(ctx):
     embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보 가위, 바위, 보", inline=True)
     embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
     embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
-    embed.add_field(name="`정보`, `info`", value="음악", inline=True)
-    embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="음악", inline=True)
-    embed.add_field(name="`음악_도움말`, `음악_도움`", value="음악", inline=True)
+    embed.add_field(name="`정보`, `info`", value="이 봇의 서버 정보입니다,", inline=True)
+    embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="유저의 정보를 알려줍니다.", inline=True)
+    embed.add_field(name="`유튜브`, `유튭`, `youtube`", value="음성채널에 들어가서 쓰면 유튜브를 볼 수 있습니다.", inline=True)
     await ctx.reply(embed=embed)
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
@@ -204,5 +206,10 @@ async def profile(ctx):
     embed.add_field(name="🪪ㅣUser ID", value=f"{Id}", inline=False)
     embed.add_field(name="📆ㅣ계정 만든 날 (UTC 기준)", value=f"{created_at}", inline=False)
     await ctx.send(embed=embed)
+
+@bot.command(aliases=['유튜브','유튭'])
+async def youtube(ctx):
+    link = await bot.togetherControl.create_link(ctx.author.voice.channel.id, 'youtube')
+    await ctx.send(f"아래 링크를 클릭하세요!\n{link}")
 
 bot.run(os.environ["DISCORD_TOKEN"])
