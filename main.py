@@ -173,7 +173,7 @@ async def youtube(ctx):
 
 @bot.command()
 async def 익명(ctx, msg:str):
-    webhook = Webhook.from_url('webhook-url-here', adapter=RequestsWebhookAdapter()) # Initializing webhook
+    webhook = Webhook.from_url('https://ptb.discord.com/api/webhooks/974995333572608050/2q-L4OgeOaVQ-nijxgxA9JLOQU9lI0o0XhoIkPXtR1S8RckI6UVWSmxI-vom2-P4_koo', adapter=RequestsWebhookAdapter()) # Initializing webhook
     webhook.send(username="익명", content=f"{msg}") # Executing webhook.
 
 bot.run(os.environ["DISCORD_TOKEN"])
