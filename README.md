@@ -16,7 +16,9 @@ tags:
 
 # 호스팅
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fdiscord-py&envs=DISCORD_TOKEN&DISCORD_TOKENDesc=Token+of+the+Discord+account+used)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FImNyang%2FImBot%2Ftree%2Fmaster%2&Fenvs=DISCORD_TOKEN&DISCORD_TOKENDesc=Token+of+the+Discord+account+used)
+
+//https://github.com/imnyang/imbot
 
 토큰은 기대 하셨겠지만 railway.app에서 관리중이여서 깃헙에 안남아요
 
