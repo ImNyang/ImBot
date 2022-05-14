@@ -2,10 +2,10 @@
 
 import discord
 from discord.ext import commands
-import random, platform, psutil, asyncio, jishaku, os, requests
+import random, platform, psutil, asyncio, jishaku, os
 from discord_buttons_plugin import *
 from discord_together import DiscordTogether
-from bs4 import BeautifulSoup
+from discord import Webhook, RequestsWebhookAdapter # Importing discord.Webhook and discord.RequestsWebhookAdapter
 
 #함수 설정
 
@@ -171,19 +171,9 @@ async def youtube(ctx):
     link = await bot.togetherControl.create_link(ctx.author.voice.channel.id, 'youtube')
     await ctx.send(f"아래 링크를 클릭하세요!\n{link}")
 
-def get_search_count(keyword):
-    url = "https://www.google.com/search?q={}".format(keyword)
-    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'}
-    res = requests.get(url, headers=headers)
-
-    soup = BeautifulSoup(res.text, 'lxml')
-    number = soup.select_one('#result-stats').text
-    # print(number) # 검색결과 약 7,320,000개 (0.47초) 
-    number = number[number.find('약')+2:number.rfind('개')] # 7,320,000
-    number = int(number.replace(',','')) # 7320000
-    return {'keyword':keyword, 'number':number}
-@bot.command(aliases=['구글','검색', 'search'])
-async def google(ctx, search:str):
-    await ctx.reply(get_search_count(search))
+@bot.command()
+async def 익명(ctx, msg:str):
+    webhook = Webhook.from_url('webhook-url-here', adapter=RequestsWebhookAdapter()) # Initializing webhook
+    webhook.send(username="익명", content=f"{msg}") # Executing webhook.
 
 bot.run(os.environ["DISCORD_TOKEN"])
