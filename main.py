@@ -1,13 +1,13 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
+from ast import alias
 from urllib import response
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
 from discord_buttons_plugin import *
 from discord_together import DiscordTogether
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
+import pyshorteners as ps
 
 #함수 설정
 
@@ -173,16 +173,13 @@ async def youtube(ctx):
     link = await bot.togetherControl.create_link(ctx.author.voice.channel.id, 'youtube')
     await ctx.reply(f"아래 링크를 클릭하세요!\n{link}")
 
-@bot.command()
-async def naver_ranking(ctx, msg:str):
-    response = urlopen('https://www.naver.com/')
-    soup = BeautifulSoup(response, 'html.parser')
-    i = 1
-    embed = discord.Embed(title="네이버 인기 급상승 검색어", description="👀")
-    for anchor in soup.select("span.ah_k"):
-        embed.add_field(name=f"{str(i)}위", value=f"{anchor.get_text()}", inline=False)
-        i = i + 1
-    await ctx.reply(embed=embed)
+@bot.command(aliases=['url', 'url단축', 'short', 'shorturl', '링크', '링크단축'])
+async def link(ctx, url:str):
+    sh = ps.Shortener()
+    short_url = (sh.tinyurl.short(url))
+    
+    await ctx.reply(short_url)
+    
         
 
 bot.run(os.environ["DISCORD_TOKEN"])
