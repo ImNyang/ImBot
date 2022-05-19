@@ -4,6 +4,10 @@ import discord
 class helpCog:
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.bot.remove_command('help')
 
     @commands.command(pass_context=True, aliases=['도움', '도움말', '명령어'])
     async def help(ctx):

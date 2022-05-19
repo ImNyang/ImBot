@@ -14,7 +14,6 @@ with open('config.json') as f:
     turn_jsk = data["PREFIX"]
 
 bot = commands.Bot(command_prefix=what_is_prefix)
-bot.remove_command('help')
 
 if turn_jsk == "True":
     bot.load_extension('jishaku')
