@@ -2,13 +2,28 @@
 
 import discord
 from discord.ext import commands
-import jishaku, os
+import jishaku, os, json
 
 #함수 설정
 
-bot = commands.Bot(command_prefix='냥 ',)
+what_is_prefix = ""
+
+with open('config.json') as f:
+    data = json.load(f)
+    what_is_prefix = data["PREFIX"]
+    turn_jsk = data["PREFIX"]
+
+bot = commands.Bot(command_prefix=what_is_prefix)
 bot.remove_command('help')
-bot.load_extension('jishaku')
+
+if turn_jsk == "True":
+    bot.load_extension('jishaku')
+elif turn_jsk == "False":
+    pass
+else:
+    pass
+
+#cog
 
 for f in os.listdir("./cogs"):
 	if f.endswith(".py"):
