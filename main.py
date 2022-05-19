@@ -28,14 +28,16 @@ async def on_ready():
     await user.send("<:neko_party:943083727901302834>ㅣ봇이 준비되었습니다!")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
+@bot.event
+async def on_command_error(ctx, error):
+    embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
+    embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
+    embed.set_footer(text="Dm : ImNyang#9009")
+    await ctx.send(embed=embed)
 
 #코드
 
-@bot.command(aliases=['핑', 'pong', '퐁'])
-async def ping(ctx):
-    embed=discord.Embed(title="🏓ㅣ퐁!")
-    embed.add_field(name=f"{round(round(bot.latency, 4)*1000)}", value="ms", inline=True)
-    await ctx.reply(embed=embed)
+
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
 async def 안녕(ctx):
