@@ -1,20 +1,20 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
-from ast import alias
-from urllib import response
 import discord
 from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
-from discord_buttons_plugin import *
 from discord_together import DiscordTogether
 import pyshorteners as ps
 
 #함수 설정
 
 bot = commands.Bot(command_prefix='냥 ',)
-buttons = ButtonsClient(bot)
 bot.remove_command('help')
 bot.load_extension('jishaku')
+
+for f in os.listdir("./cogs"):
+	if f.endswith(".py"):
+		bot.load_extension("cogs." + f[:-3])
 
 #event 처리
 
@@ -28,12 +28,6 @@ async def on_ready():
     await user.send("<:neko_party:943083727901302834>ㅣ봇이 준비되었습니다!")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
-@bot.event
-async def on_command_error(ctx, error):
-    embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
-    embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
-    embed.set_footer(text="Dm : ImNyang#9009")
-    await ctx.send(embed=embed)
 
 #코드
 
@@ -41,23 +35,6 @@ async def on_command_error(ctx, error):
 async def ping(ctx):
     embed=discord.Embed(title="🏓ㅣ퐁!")
     embed.add_field(name=f"{round(round(bot.latency, 4)*1000)}", value="ms", inline=True)
-    await ctx.reply(embed=embed)
-
-@bot.command(aliases=['도움', '도움말', '명령어'])
-async def help(ctx):
-    embed=discord.Embed(title="❔ㅣ도움말", description="Prefix : `냥 `")
-    embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="퐁!", inline=True)
-    embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="챗을 정리합니다. (최대 갯수 없음 하지만 렉으로 인한 봇이 죽을 가능성 있음)", inline=True)
-    embed.add_field(name="`밴`, `죽어라`, `ven`, `ban`", value="유저를 ven합니다!", inline=True)
-    embed.add_field(name="`언밴`, `살어라`, `unven`, `unban`", value="유저를 unven합니다!", inline=True)
-    embed.add_field(name="`킥`, `kick`", value="유저를 킥합니다!", inline=True)
-    embed.add_field(name="`가위바위보`, `rockscissorspaper`", value="가위바위보 가위, 바위, 보", inline=True)
-    embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
-    embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
-    embed.add_field(name="`정보`, `info`", value="이 봇의 서버 정보입니다,", inline=True)
-    embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="유저의 정보를 알려줍니다.", inline=True)
-    embed.add_field(name="`유튜브`, `유튭`, `youtube`", value="음성채널에 들어가서 쓰면 유튜브를 볼 수 있습니다.", inline=True)
-    embed.add_field(name="`url`, `short`, `shorturl`, `link`, `url단축`, `링크`, `링크단축`", value="", inline=True)
     await ctx.reply(embed=embed)
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
@@ -87,7 +64,6 @@ async def ban(ctx, user: discord.Member, *, reason="No reason provided"):
 @bot.command(aliases=['언밴','unven','살아라'])
 @commands.has_permissions(administrator=True)
 async def unban(ctx, *, member_id: int):
-    """ command to unban user. check !help unban """
     await ctx.guild.unban(discord.Object(id=member_id))
     await ctx.reply(f"`sudo unven {member_id}`")
 
@@ -178,9 +154,7 @@ async def youtube(ctx):
 async def link(ctx, url:str):
     sh = ps.Shortener()
     short_url = (sh.tinyurl.short(url))
-    
     await ctx.reply(short_url)
-    
-        
+
 
 bot.run(os.environ["DISCORD_TOKEN"])

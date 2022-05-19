@@ -9,6 +9,5 @@ typing-extensions==3.10.0.0
 yarl==1.6.3
 psutil==5.9.0
 jishaku==2.5.0
-discord_buttons_plugin==0.1.2
 discord-together==1.2.4
 pyshorteners==1.0.1
