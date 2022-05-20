@@ -1,5 +1,8 @@
 from discord.ext import commands
 import discord
+import json
+
+what_is_prefix = ""
 
 class helpCog:
     def __init__(self, bot):
@@ -8,10 +11,14 @@ class helpCog:
     @commands.Cog.listener()
     async def on_ready(self):
         self.bot.remove_command('help')
+    
+    with open('config.json') as f:
+        data = json.load(f)
+        what_is_prefix = data["PREFIX"]
 
     @commands.command(pass_context=True, aliases=['도움', '도움말', '명령어'])
     async def help(ctx):
-        embed=discord.Embed(title="❔ㅣ도움말", description="Prefix : `냥 `")
+        embed=discord.Embed(title="❔ㅣ도움말", description=f"Prefix : `{what_is_prefix}`")
         embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="퐁!", inline=True)
         embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="챗을 정리합니다. (최대 갯수 없음 하지만 렉으로 인한 봇이 죽을 가능성 있음)", inline=True)
         embed.add_field(name="`밴`, `죽어라`, `ven`, `ban`", value="유저를 ven합니다!", inline=True)
