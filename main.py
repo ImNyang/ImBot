@@ -14,7 +14,8 @@ with open('config.json') as f:
     what_is_prefix = data["PREFIX"]
     turn_jsk = data["JSK"]# 왜 Prefix로 해두고 있었지
 
-bot = commands.Bot(command_prefix=f'{what_is_prefix}')
+intents = discord.Intents(messages=True, guilds=True)
+bot = commands.Bot(command_prefix=f'{what_is_prefix}', intents=intents)
 
 if turn_jsk == "True":
     bot.load_extension('jishaku')
