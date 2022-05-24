@@ -3,7 +3,7 @@
 import discord
 from discord.ext import commands
 import jishaku, os, json
-import give_token
+#import give_token as to                오류가 너무 많이남
 
 #함수 설정
 
@@ -30,4 +30,4 @@ for f in os.listdir("./cogs"):
 	if f.endswith(".py"):
 		bot.load_extension("cogs." + f[:-3])
 
-bot.run(give_token.token())
+bot.run(os.environ.get("DISCORD_TOKEN"))
