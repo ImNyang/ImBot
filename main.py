@@ -18,6 +18,7 @@ with open('config.json') as f:
 
 intents = discord.Intents(messages=True, guilds=True)
 bot = commands.Bot(command_prefix=f'{what_is_prefix}', intents=intents)
+bot.remove_command('help')
 
 if turn_jsk == "True":
     bot.load_extension('jishaku')
