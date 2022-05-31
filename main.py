@@ -26,7 +26,7 @@ elif turn_jsk == "False":
 
 #event
 @bot.event
-async def on_ready(self):
+async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
@@ -36,7 +36,7 @@ async def on_ready(self):
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
 @bot.event
-async def on_command_error(self, ctx, error):
+async def on_command_error(ctx, error):
     embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
     embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
     embed.set_footer(text="Dm : ImNyang#9009")
