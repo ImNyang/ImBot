@@ -1,31 +1,21 @@
 #라이브러리 안쓰는거 같지만 다 씀
 
-import discord, jishaku, os, json, platform, random, psutil
+import discord
 from discord.ext import commands
-import pyshorteners as ps
+import random, platform, psutil, asyncio, jishaku, os
 from discord_together import DiscordTogether
-
-#import give_token as to                오류가 너무 많이남
+import pyshorteners as ps
 
 #함수 설정
 
-what_is_prefix = ""
+bot = commands.Bot(command_prefix='냥 ',)
+bot.remove_command('help')
+bot.load_extension('jishaku')
 
-with open('config.json') as f:
-    data = json.load(f)
-    what_is_prefix = data["PREFIX"]
-    turn_jsk = data["JSK"]# 왜 Prefix로 해두고 있었지
-    
-bot = commands.Bot(command_prefix=f'{what_is_prefix}', help_command=None)
+#event 처리
 
-if turn_jsk == "True":
-    bot.load_extension('jishaku')
-elif turn_jsk == "False":
-    pass
-
-#event
 @bot.event
-async def on_ready(self):
+async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
@@ -35,17 +25,23 @@ async def on_ready(self):
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
 @bot.event
-async def on_command_error(self, ctx, error):
+async def on_command_error(ctx, error):
     embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
     embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
     embed.set_footer(text="Dm : ImNyang#9009")
     await ctx.send(embed=embed)
 
-#help
+#코드
 
-@bot.command(pass_context=True, aliases=['도움', '도움말', '명령어'])
+@bot.command(aliases=['핑', 'pong', '퐁'])
+async def ping(ctx):
+    embed=discord.Embed(title="🏓ㅣ퐁!")
+    embed.add_field(name=f"{round(round(bot.latency, 4)*1000)}", value="ms", inline=True)
+    await ctx.reply(embed=embed)
+
+@bot.command(aliases=['도움', '도움말', '명령어'])
 async def help(ctx):
-    embed=discord.Embed(title="❔ㅣ도움말", description=f"Prefix : `{what_is_prefix}`")
+    embed=discord.Embed(title="❔ㅣ도움말", description="Prefix : `냥 `")
     embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="퐁!", inline=True)
     embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="챗을 정리합니다. (최대 갯수 없음 하지만 렉으로 인한 봇이 죽을 가능성 있음)", inline=True)
     embed.add_field(name="`밴`, `죽어라`, `ven`, `ban`", value="유저를 ven합니다!", inline=True)
@@ -55,12 +51,20 @@ async def help(ctx):
     embed.add_field(name="`주사위`, `dice`", value="데구루르!", inline=True)
     embed.add_field(name="`동전`, `동전던지기`, `coin`", value="데구루르! 틱!", inline=True)
     embed.add_field(name="`정보`, `info`", value="이 봇의 서버 정보입니다,", inline=True)
-    embed.add_field(name="`내_유저`, `내_유저_정보`, `my_profile`, `my_user_info`", value="자신의 유저의 정보를 알려줍니다.", inline=True)
+    embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="유저의 정보를 알려줍니다.", inline=True)
     embed.add_field(name="`유튜브`, `유튭`, `youtube`", value="음성채널에 들어가서 쓰면 유튜브를 볼 수 있습니다.", inline=True)
     embed.add_field(name="`url`, `short`, `shorturl`, `link`, `url단축`, `링크`, `링크단축`", value="", inline=True)
     await ctx.reply(embed=embed)
 
-#admin command
+@bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
+async def 안녕(ctx):
+    await ctx.reply("반갑습니다 {}님! 저는 ImBot입니다! 궁금한점이 있다면 `냥 help`를 입력해주세요!".format(
+        ctx.author.name))
+
+@bot.command(aliases=['테스트'])
+async def test(ctx):
+   msg = await ctx.reply(f"📡ㅣ{round(round(bot.latency, 4)*1000)}ms 테스트 완료! 이 메시지는 3초 뒤에 삭제됩니다.")
+   await msg.delete(delay=3)
 
 @commands.has_permissions(administrator=True)
 @bot.command(aliases=['청소','clean','지워','삭제'])
@@ -79,6 +83,7 @@ async def ban(ctx, user: discord.Member, *, reason="No reason provided"):
 @bot.command(aliases=['언밴','unven','살아라'])
 @commands.has_permissions(administrator=True)
 async def unban(ctx, *, member_id: int):
+    """ command to unban user. check !help unban """
     await ctx.guild.unban(discord.Object(id=member_id))
     await ctx.reply(f"`sudo unven {member_id}`")
 
@@ -88,25 +93,6 @@ async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
     await user.kick(reason=reason)
     await ctx.channel.send(f"`sudo kick {user.name} && reason {reason}`")
     await user.send(f"`sudo kick {user.name} && reason {reason}`")
-
-#bot-server command
-
-@bot.command(aliases=['정보'])
-async def info(ctx):
-    embed=discord.Embed(title="정보", description="railway.app으로 호스팅 중")
-    embed.add_field(name="운영체제", value="OS" + platform.system() + " : " + platform.version(), inline=False)
-    embed.add_field(name="CPU", value=platform.processor(), inline=False)
-    embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
-    embed.set_footer(text="Railway.app")
-    await ctx.send(embed=embed)
-
-@bot.command(aliases=['핑', 'pong', '퐁'])
-async def ping(self, ctx):
-    embed=discord.Embed(title="🏓ㅣ퐁!")
-    embed.add_field(name=f"{round(round(bot.latency, 4)*1000)}", value="ms", inline=True)
-    await ctx.reply(embed=embed)
-
-#game
 
 @bot.command(aliases=['가위바위보'])
 async def rockscissorspaper(ctx, user: str):
@@ -149,16 +135,18 @@ async def coin(ctx):
     if randomNum == 2:
         await ctx.reply(embed=discord.Embed(title="🪙ㅣ동전 던지기", description='앞면!'))
 
-#utility command
+@bot.command(aliases=['정보'])
+async def info(ctx):
+    embed=discord.Embed(title="정보", description="railway.app으로 호스팅 중")
+    embed.add_field(name="운영체제", value="OS" + platform.system() + " : " + platform.version(), inline=False)
+    embed.add_field(name="CPU", value=platform.processor(), inline=False)
+    embed.add_field(name="Ram", value=str(round(psutil.virtual_memory().total / (1024.0 **3)))+"(GB)", inline=False)
+    embed.set_footer(text="Railway.app")
+    await ctx.send(embed=embed)
+    
 
-@bot.command(aliases=['url', 'url단축', 'short', 'shorturl', '링크', '링크단축'])
-async def link(ctx, url:str):
-    sh = ps.Shortener()
-    short_url = (sh.tinyurl.short(url))
-    await ctx.reply(short_url)
-
-@bot.command(aliases=['내_유저', '내_유저_정보','my_user_info'])
-async def my_profile(ctx):
+@bot.command(aliases=['유저', '유저_정보','user_info'])
+async def profile(ctx):
     name = ctx.author.name
     displayname = ctx.author.display_name
     areyoubot = ctx.author.bot
@@ -178,20 +166,17 @@ async def my_profile(ctx):
     await ctx.send(embed=embed)
 
 @bot.command(aliases=['유튜브','유튭'])
-async def youtube(self, ctx):
+async def youtube(ctx):
     link = await bot.togetherControl.create_link(ctx.author.voice.channel.id, 'youtube')
     await ctx.reply(f"아래 링크를 클릭하세요!\n{link}")
 
-#test_command
-@bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
-async def 안녕(ctx):
-    await ctx.reply("반갑습니다 {}님! 저는 ImBot입니다! 궁금한점이 있다면 `냥 help`를 입력해주세요!".format(
-        ctx.author.name))
+@bot.command(aliases=['url', 'url단축', 'short', 'shorturl', '링크', '링크단축'])
+async def link(ctx, url:str):
+    sh = ps.Shortener()
+    short_url = (sh.tinyurl.short(url))
+    
+    await ctx.reply(short_url)
+    
+        
 
-@bot.command(aliases=['테스트'])
-async def test(self, ctx):
-    msg = await ctx.reply(f"📡ㅣ{round(round(bot.latency, 4)*1000)}ms 테스트 완료! 이 메시지는 3초 뒤에 삭제됩니다.")
-    await msg.delete(delay=3)
-
-bot.run(os.environ.get("DISCORD_TOKEN"))
-#bot.run("token")
+bot.run(os.environ["DISCORD_TOKEN"])
