@@ -8,7 +8,7 @@ import pyshorteners as ps
 
 #함수 설정
 
-bot = commands.Bot(command_prefix='냥 ',)
+bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
 bot.load_extension('jishaku')
 
