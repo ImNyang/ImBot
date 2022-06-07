@@ -176,7 +176,5 @@ async def link(ctx, url:str):
     short_url = (sh.tinyurl.short(url))
     
     await ctx.reply(short_url)
-    
-        
 
 bot.run(os.environ["DISCORD_TOKEN"])

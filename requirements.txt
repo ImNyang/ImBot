@@ -1,8 +1,13 @@
 aiohttp>=3.7.4
 async-timeout==3.0.1
+attrs==21.2.0
+chardet==4.0.0
 discord.py==1.7.3
+idna==3.2
+multidict==5.1.0
+typing-extensions==3.10.0.0
+yarl==1.6.3
 psutil==5.9.0
 jishaku==2.5.0
 discord-together==1.2.4
 pyshorteners==1.0.1
-googlesearch-python==1.1.0
