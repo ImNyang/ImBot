@@ -5,12 +5,15 @@ from discord.ext import commands
 import random, platform, psutil, asyncio, jishaku, os
 from discord_together import DiscordTogether
 import pyshorteners as ps
+from PingPongTool import PingPong  # 핑퐁툴 모듈 임포트
+import asyncio  # 비동기 사용을 위한 asyncio 모듈
 
 #함수 설정
 
 bot = commands.Bot(command_prefix='냥 ')
 bot.remove_command('help')
 bot.load_extension('jishaku')
+Ping = PingPong(os.environ["URL"], os.environ["AUTHOTIZATION"])  # 핑퐁 클래스 선언
 
 #event 처리
 
@@ -185,5 +188,14 @@ async def link(ctx, url:str):
     short_url = (sh.tinyurl.short(url))
     
     await ctx.reply(short_url)
+
+@bot.command(aliases=["채팅"])
+async def chat(ctx, text:str):
+    data = await Ping.Pong("Example", text)  # 자연스러운 대화를 위한 세션 아이디와
+                                             # 전송할 텍스트
+    embed = discord.Embed(title="Reply", description=f"{data}")
+    embed.set_footer(text="minibox24의 PingPongTool과 pingpong.us로 제작됨")
+    
+    await ctx.reply(embed=embed)
 
 bot.run(os.environ["DISCORD_TOKEN"])
