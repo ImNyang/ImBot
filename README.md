@@ -28,7 +28,7 @@ tags:
 
 아래 버튼으로 바로 이 봇을 사용하실수 있습니다!
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FImNyang%2FImBot%2Ftree%2Fmaster%2&Fenvs=DISCORD_TOKEN&DISCORD_TOKENDesc=Token+of+the+Discord+account+used)
+현재 이 버튼은 많은 오류로 사용할 수 없습니다. 죄송합니다. 직접 설치해주세요!
 
 토큰은 기대 하셨겠지만 railway.app에서 관리중이여서 깃헙에 안남아요
 
@@ -42,6 +42,7 @@ tags:
 - 코드 안에 토큰을 수
 - `pip install -r requirements.txt`로 필요 라이브러리를 설치해 주세요!
 - `python3 main.py`으로 실행해보세요!
+- 그리고 코드에서 `os.environ[""]`은 모두 올바른 값으로 설정하거나 없으면 비워주세요!
 
 ## 📝 노트
 
