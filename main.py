@@ -41,6 +41,7 @@ async def ping(ctx):
 
 @bot.command(aliases=['도움', '도움말', '명령어'])
 async def help(ctx):
+    '''
     embed=discord.Embed(title="❔ㅣ도움말", description="Prefix : `냥 `")
     embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="퐁!", inline=True)
     embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="챗을 정리합니다. (최대 갯수 없음 하지만 렉으로 인한 봇이 죽을 가능성 있음)", inline=True)
@@ -54,6 +55,14 @@ async def help(ctx):
     embed.add_field(name="`유저`, `유저_정보`, `profile`, `user_info`", value="유저의 정보를 알려줍니다.", inline=True)
     embed.add_field(name="`유튜브`, `유튭`, `youtube`", value="음성채널에 들어가서 쓰면 유튜브를 볼 수 있습니다.", inline=True)
     embed.add_field(name="`url`, `short`, `shorturl`, `link`, `url단축`, `링크`, `링크단축`", value="", inline=True)
+    await ctx.reply(embed=embed)
+    '''
+    embed = discord.Embed(title="도움말", description="도움말을 알려줍니다.", color=discord.colour.Blue)
+    embed.add_field(name="-유틸-", value="유틸들을 설명합니다.", inline=False)
+    embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="이 봇에 핑을 알려줍니다. (USA)", inline=True)
+    embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="채팅을 갯수만큼 지웁니다. use : (갯수)", inline=True)
+    
+    embed.set_footer(text="도움말 다시 쓰는중!")
     await ctx.reply(embed=embed)
 
 @bot.command(aliases=['Hi','hi','Hello', 'hello', '안녕하세요'])
