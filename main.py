@@ -193,6 +193,9 @@ async def link(ctx, url:str):
 async def chat(ctx, text:str):
     data = await Ping.Pong("Example", text)  # 자연스러운 대화를 위한 세션 아이디와
                                              # 전송할 텍스트
+    text.strip("{'text': '")
+    text.strip("', 'image': None}")
+
     embed = discord.Embed(title="Reply", description=f"{data}")
     embed.set_footer(text="minibox24의 PingPongTool과 pingpong.us로 제작됨")
     
