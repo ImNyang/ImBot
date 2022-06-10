@@ -191,7 +191,7 @@ async def link(ctx, url:str):
 
 @bot.command(aliases=["채팅"])
 async def chat(ctx, text:str):
-    data = await Ping.Pong("Example", text)  # 자연스러운 대화를 위한 세션 아이디와
+    data = str(await Ping.Pong("Example", text))  # 자연스러운 대화를 위한 세션 아이디와
                                              # 전송할 텍스트
     data = data.strip("{'text': '")
     data = data.strip("', 'image': None}")
