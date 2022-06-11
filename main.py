@@ -64,7 +64,7 @@ async def help(ctx):
     embed.add_field(name="-유틸-", value="유틸들을 설명합니다.", inline=False)
     embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="이 봇에 핑을 알려줍니다. (USA)", inline=True)
     embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="채팅을 갯수만큼 지웁니다. use : (갯수)", inline=True)
-    
+    embed.add_field(name="`밴`, `죽어라`, `ban`, `ven`", value="유저를 밴합니다. 사유와 서버 이름까지 전송", inline=True)
     embed.set_footer(text="도움말 다시 쓰는중!")
     await ctx.reply(embed=embed)
 
@@ -82,29 +82,29 @@ async def test(ctx):
 @bot.command(aliases=['청소','clean','지워','삭제'])
 async def clear(ctx, amount : int):
     await ctx.channel.purge(limit=amount)
-    msg = await ctx.send("<:neko_candy:943083727985180722>ㅣ완료되었습니다! 이 메시지도 곧 삭제됩니다.")
+    msg = await ctx.send("🧹ㅣ완료되었습니다! 이 메시지도 곧 삭제됩니다.")
     await msg.delete(delay=3)
 
 @bot.command(aliases=['밴','ven','죽어라'])
 @commands.has_permissions(ban_members = True)
 async def ban(ctx, user: discord.Member, *, reason="No reason provided"):
     await user.ban(reason=reason)
-    await ctx.channel.send(f"`sudo ven {user.name} && reason {reason}`")
-    await user.send(f"`sudo ven {user.name} && reason {reason}`")
+    await ctx.channel.send(f"`sudo ven {user.name} && reason {reason} in {ctx.guild.name}`")
+    await user.send(f"`sudo ven {user.name} && reason {reason} in {ctx.guild.name}`")
 
 @bot.command(aliases=['언밴','unven','살아라'])
 @commands.has_permissions(administrator=True)
 async def unban(ctx, *, member_id: int):
     """ command to unban user. check !help unban """
     await ctx.guild.unban(discord.Object(id=member_id))
-    await ctx.reply(f"`sudo unven {member_id}`")
+    await ctx.reply(f"`sudo unven {member_id} in {ctx.guild.name}`")
 
 @commands.has_permissions(kick_members=True)
 @bot.command(aliases=['킥'])
 async def kick(ctx, user: discord.Member, *, reason="No reason provided"):
     await user.kick(reason=reason)
-    await ctx.channel.send(f"`sudo kick {user.name} && reason {reason}`")
-    await user.send(f"`sudo kick {user.name} && reason {reason}`")
+    await ctx.channel.send(f"`sudo kick {user.name} && reason {reason} in {ctx.guild.name}`")
+    await user.send(f"`sudo kick {user.name} && reason {reason} in {ctx.guild.name}`")
 
 @bot.command(aliases=['가위바위보'])
 async def rockscissorspaper(ctx, user: str):
