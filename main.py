@@ -60,7 +60,7 @@ async def help(ctx):
     embed.add_field(name="`url`, `short`, `shorturl`, `link`, `url단축`, `링크`, `링크단축`", value="", inline=True)
     await ctx.reply(embed=embed)
     '''
-    embed = discord.Embed(title="도움말", description="도움말을 알려줍니다.", color=discord.colour.blue())
+    embed = discord.Embed(title="도움말", description="도움말을 알려줍니다.", color=0x2954ff)
     embed.add_field(name="-유틸-", value="유틸들을 설명합니다.", inline=False)
     embed.add_field(name="`핑`, `퐁`, `ping`, `pong`", value="이 봇에 핑을 알려줍니다. (USA)", inline=True)
     embed.add_field(name="`청소`, `지워`, `삭제`, `clean`, `clear`", value="채팅을 갯수만큼 지웁니다. use : (갯수)", inline=True)
