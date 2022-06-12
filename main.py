@@ -198,7 +198,7 @@ async def chat(ctx, text:str):
     data = data.strip("{'text': '")
     data = data.strip("', 'image': None}")
 
-    embed = discord.Embed(title="Reply", description=f"{data}", color=discord.colour.blue())
+    embed = discord.Embed(title="Reply", description=f"{data}")
     embed.set_footer(text="minibox24의 PingPongTool과 pingpong.us로 제작됨")
     
     await ctx.reply(embed=embed)
@@ -206,7 +206,7 @@ async def chat(ctx, text:str):
 @bot.command(aliases=["부가세"])
 async def surtax(ctx, num:int):
     result = round(num * (1 / 11))
-    embed = discord.Embed(title="부가세 게산 완료!", description=num, color=discord.colour.red())
+    embed = discord.Embed(title="부가세 게산 완료!", description=num)
     embed.set_footer(text="한국의 부가세 기준이며 `원`단위로 계산합니다.")
 
 
