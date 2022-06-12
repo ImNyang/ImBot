@@ -2,11 +2,13 @@
 
 import discord
 from discord.ext import commands
-import random, platform, psutil, asyncio, jishaku, os
+import random, platform, psutil, asyncio, jishaku, os, re, requests
 from discord_together import DiscordTogether
 import pyshorteners as ps
 from PingPongTool import PingPong  # 핑퐁툴 모듈 임포트
 import asyncio  # 비동기 사용을 위한 asyncio 모듈
+import urllib.request as ur
+from bs4 import BeautifulSoup as bs
 
 #함수 설정
 
@@ -200,5 +202,13 @@ async def chat(ctx, text:str):
     embed.set_footer(text="minibox24의 PingPongTool과 pingpong.us로 제작됨")
     
     await ctx.reply(embed=embed)
+
+@bot.command(aliases=["부가세"])
+async def surtax(ctx, num:int):
+    result = round(num * (1 / 11))
+    embed = discord.Embed(title="부가세 게산 완료!", description=num, color=discord.colour.Red)
+    embed.set_footer(text="한국의 부가세 기준이며 `원`단위로 계산합니다.")
+
+
 
 bot.run(os.environ["DISCORD_TOKEN"])
