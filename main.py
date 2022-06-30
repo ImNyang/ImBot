@@ -9,6 +9,7 @@ from PingPongTool import PingPong  # 핑퐁툴 모듈 임포트
 import asyncio  # 비동기 사용을 위한 asyncio 모듈
 import urllib.request as ur
 from bs4 import BeautifulSoup as bs
+import PyNaCl
 
 #함수 설정
 
