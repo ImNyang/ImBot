@@ -209,6 +209,12 @@ async def surtax(ctx, num:int):
     embed = discord.Embed(title="부가세 게산 완료!", description=num)
     embed.set_footer(text="한국의 부가세 기준이며 `원`단위로 계산합니다.")
 
-
+@bot.command()
+async def join(ctx):
+    channel = ctx.author.voice.channel
+    await channel.connect()
+@bot.command()
+async def leave(ctx):
+    await ctx.voice_client.disconnect()
 
 bot.run(os.environ["DISCORD_TOKEN"])
