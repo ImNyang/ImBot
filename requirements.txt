@@ -12,5 +12,3 @@ jishaku==2.5.0
 discord-together==1.2.4
 pyshorteners==1.0.1
 PingPongTool==1.0.0
-requests==2.28.0
-beautifulsoup4==4.11.1
